@@ -24,11 +24,13 @@ import javafx.stage.Stage;
  *
  * @author aashgar
  */
-public class LoginScreen extends Application{
+public class LoginScreen extends Application {
+
     private TextField textFieldLoginName;
     private PasswordField passwordField;
     private Label labelInfo, labelStatus;
     private Button buttonSubmit, buttonClear;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         textFieldLoginName = new TextField();
@@ -41,7 +43,7 @@ public class LoginScreen extends Application{
                 passwordField, labelStatus);
         vBox1.setAlignment(Pos.CENTER);
         vBox1.setSpacing(10);
-        
+
         buttonSubmit = new Button("Submit");
         buttonClear = new Button("Clear");
         buttonSubmit.setOnAction(new MyEventHandler());
@@ -50,33 +52,49 @@ public class LoginScreen extends Application{
         hBox1.setSpacing(20);
         hBox1.setAlignment(Pos.CENTER);
         hBox1.getChildren().addAll(buttonSubmit, buttonClear);
-        
+
         VBox vBox2 = new VBox(vBox1, hBox1);
         vBox2.setStyle("-fx-border-color: blue");
         vBox2.setPadding(new Insets(20, 20, 20, 20));
-        
+
         FlowPane flowPane = new FlowPane(vBox2);
         flowPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(flowPane, 400, 400);
         scene.getStylesheets().add("file:./src/CRS/styles.css");
-        primaryStage.setScene(scene);       
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
-    private class  MyEventHandler implements EventHandler<ActionEvent>{
+
+    private class MyEventHandler implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            if(event.getSource() == buttonSubmit)
-                labelStatus.setText("Submit Pressed");
-            else if(event.getSource() == buttonClear)
-                labelStatus.setText("Clear Clear");
+            if (event.getSource() == buttonSubmit) {
+                FConnection fConnection = new FConnection();
+                if(fConnection.verifyUser(textFieldLoginName.getText(),
+                        passwordField.getText()))
+                
+//                if (textFieldLoginName.getText().equals("SE")
+//                        && passwordField.getText().equals("123456"))
+                {
+                    labelStatus.setText("Valid User");
+                    StudentEntryScreen studentEntryScreen = new StudentEntryScreen();
+                    studentEntryScreen.show();
+                } else {
+                    labelStatus.setText("Invalid User");
+                }
+            } else if (event.getSource() == buttonClear) {
+                textFieldLoginName.setText("");
+                passwordField.setText("");
+                labelStatus.setText("");
+            }
+
         }
-        
+
     }
-    
+
 }
