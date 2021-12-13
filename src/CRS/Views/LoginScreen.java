@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CRS;
+package CRS.Views;
 
+import CRS.*;
+import CRS.DataStorage.FacadeDataStorage;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -60,7 +62,8 @@ public class LoginScreen extends Application {
         FlowPane flowPane = new FlowPane(vBox2);
         flowPane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(flowPane, 400, 400);
-        scene.getStylesheets().add("file:./src/CRS/styles.css");
+//        scene.getStylesheets().add("file:./src/CRS/styles.css");
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -74,8 +77,9 @@ public class LoginScreen extends Application {
         @Override
         public void handle(ActionEvent event) {
             if (event.getSource() == buttonSubmit) {
-                FConnection fConnection = new FConnection();
-                if(fConnection.verifyUser(textFieldLoginName.getText(),
+                FacadeDataStorage facadeDataStorage =
+                        FacadeDataStorage.getFacadeDataStorage();
+                if(facadeDataStorage.verifyUser(textFieldLoginName.getText(),
                         passwordField.getText()))
                 
 //                if (textFieldLoginName.getText().equals("SE")

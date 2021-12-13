@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CRS;
+package CRS.Views;
+import CRS.Models.Student;
+import CRS.*;
+import CRS.DataStorage.FacadeDataStorage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -79,11 +82,12 @@ public class StudentEntryScreen extends Stage{
                 student.setName(textFieldName.getText());
                 student.setMajor(textFieldMajor.getText());
                 student.setGrade(Double.parseDouble(textFieldGrade.getText()));
-                FConnection fConnection = new FConnection();
-                fConnection.saveStudent(student);
+                FacadeDataStorage facadeDataStorage = 
+                        FacadeDataStorage.getFacadeDataStorage();
+                facadeDataStorage.saveStudent(student);
             }
             else if(event.getSource() ==  buttonShow){
-
+                    
             }
             
             else if(event.getSource() == buttonClear){
