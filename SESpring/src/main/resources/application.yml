@@ -1,0 +1,17 @@
+server:
+    port: 9099
+
+spring:
+    application:
+        name: SESpring
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sespring?serverTimezone=UTC
+        username: root
+        password: root
+        nitialization-mode: always
+    jpa:
+        hibernate:
+            ddl-auto: update
+
+
